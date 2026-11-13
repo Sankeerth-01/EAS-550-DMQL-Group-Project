@@ -64,3 +64,5 @@ A table is in 3NF if, for every nontrivial dependency X → A that holds in it, 
 | customer_unique_id under more than one customer_id | 34 | Returning buyers; this is why the column is not UNIQUE. |
 
 That every customer has an order cannot be declared without a circular foreign key, so a verification query confirms it (0 customers without an order). Orders without items are valid: 76 have none (55 unavailable, 21 canceled).
+
+**Rerun.** The load runs in one transaction, parents first, and any error rolls back all five tables. Each row is written with INSERT ... ON CONFLICT (primary key) DO UPDATE, applied only where the stored row differs from the incoming row. A second run on unchanged input inserts 0 and updates 0 rows in every table, and the fingerprints and the price and freight sums are identical between runs. The limit: a row that disappears from the input is not deleted from the database; to remove rows, recreate the database and load again.

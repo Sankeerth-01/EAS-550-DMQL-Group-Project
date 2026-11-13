@@ -1,0 +1,76 @@
+
+Row counts
+  [ok] customers: 10000 (expected 10000)
+  [ok] sellers: 1641 (expected 1641)
+  [ok] products: 6686 (expected 6686)
+  [ok] orders: 10000 (expected 10000)
+  [ok] order_items: 11310 (expected 11310)
+
+Duplicate keys
+  [ok] customers.customer_id values occurring more than once: 0 (expected 0)
+  [ok] sellers.seller_id values occurring more than once: 0 (expected 0)
+  [ok] products.product_id values occurring more than once: 0 (expected 0)
+  [ok] orders.order_id values occurring more than once: 0 (expected 0)
+  [ok] order_items (order_id, order_item_id) pairs occurring more than once: 0 (expected 0)
+  [ok] orders.customer_id values occurring more than once: 0 (expected 0)
+
+Referential checks
+  [ok] orders with no matching customer: 0 (expected 0)
+  [ok] order_items with no matching order: 0 (expected 0)
+  [ok] order_items with no matching product: 0 (expected 0)
+  [ok] order_items with no matching seller: 0 (expected 0)
+  [ok] customers with no order: 0 (expected 0)
+  [ok] products no order item references: 0 (expected 0)
+  [ok] sellers no order item references: 0 (expected 0)
+  [ok] orders with no items: 76 (expected 76)
+  [ok] orders with no items, status unavailable: 55 (expected 55)
+  [ok] orders with no items, status canceled: 21 (expected 21)
+
+Domain quality: patterns the schema allows on purpose
+  [ok] delivered orders with no customer delivery date: 1 (expected 1)
+  [ok] non-delivered orders with a customer delivery date: 1 (expected 1)
+  [ok] delivered orders with no approval timestamp: 1 (expected 1)
+  [ok] orders with carrier handover before purchase: 20 (expected 20)
+  [ok] orders with customer delivery before carrier handover: 1 (expected 1)
+  [ok] products with no category: 103 (expected 103)
+  [ok] order_items that reference a product with no category: 167 (expected 167)
+  [ok] order_items with zero freight: 40 (expected 40)
+  [ok] customer_unique_id values under more than one customer_id: 34 (expected 34)
+  [ok] seller_city values with characters other than a-z, space, apostrophe, hyphen: 9 (expected 9)
+
+Domain quality: missing values kept as NULL
+  [ok] orders.order_approved_at: 20 (expected 20)
+  [ok] orders.order_delivered_carrier_date: 182 (expected 182)
+  [ok] orders.order_delivered_customer_date: 286 (expected 286)
+  [ok] products.product_weight_g: 3 (expected 3)
+  [ok] products.product_length_cm: 1 (expected 1)
+  [ok] products.product_height_cm: 1 (expected 1)
+  [ok] products.product_width_cm: 1 (expected 1)
+
+Keys and measures
+  [ok] distinct order_id in order_items: 9924 (expected 9924)
+  [ok] highest order_item_id: 8 (expected 8)
+  [ok] distinct customer_unique_id: 9966 (expected 9966)
+  [ok] SUM(price): 1363974.94 (expected 1363974.94)
+  [ok] SUM(freight_value): 227417.02 (expected 227417.02)
+  [ok] MIN(price): 3.49 (expected 3.49)
+  [ok] MAX(price): 6735.00 (expected 6735.00)
+
+Order status counts
+  [ok] delivered: 9714 (expected 9714)
+  [ok] shipped: 98 (expected 98)
+  [ok] canceled: 71 (expected 71)
+  [ok] unavailable: 55 (expected 55)
+  [ok] invoiced: 31 (expected 31)
+  [ok] processing: 30 (expected 30)
+  [ok] approved: 1 (expected 1)
+  [ok] created: 0 (expected 0)
+
+Fingerprints: MD5 over all rows as text, ordered by primary key
+  [ok] customers: 3faafdadacddbfabed94624db4edd27f (expected 3faafdadacddbfabed94624db4edd27f)
+  [ok] sellers: a2e7b0f1d5906dc4e6cee2dae6017c9f (expected a2e7b0f1d5906dc4e6cee2dae6017c9f)
+  [ok] products: 520f3e1f9fb5bbdf5ecdf4512d4eb941 (expected 520f3e1f9fb5bbdf5ecdf4512d4eb941)
+  [ok] orders: df5e2fc9513cb6376840015227025e44 (expected df5e2fc9513cb6376840015227025e44)
+  [ok] order_items: f90851c7b6e575aad31fe02021123919 (expected f90851c7b6e575aad31fe02021123919)
+
+58 checks, 0 failed

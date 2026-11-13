@@ -47,3 +47,20 @@ A table is in 3NF if, for every nontrivial dependency X → A that holds in it, 
 - **No person table.** `customer_unique_id` identifies the person, but no column depends on the person alone, since city and state can change between one person's orders. The table would hold only its key.
 - **No category table.** The category name has no dependent columns in our scope, so a lookup table would hold a single column.
 - **customers kept apart from orders.** A one-to-one relationship could be merged into one table. We keep buyer and order as separate entities linked by a UNIQUE foreign key, because later analysis treats the customer as its own dimension.
+
+## 6. Constraints, exceptions, and rerun
+
+**Enforced.** A primary key on every table; foreign keys from `orders` to `customers` and from `order_items` to `orders`, `products`, and `sellers`, with the default delete behaviour, so a referenced parent cannot be removed; NOT NULL on every required column; UNIQUE on `orders.customer_id`. CHECK constraints cover identifier and state format, the eight order statuses, positive measurements, price above 0, freight at or above 0, `order_item_id` at or above 1, and approval, customer delivery, and estimated delivery not earlier than purchase.
+
+**Left unenforced.** A constraint against any of these patterns would reject real rows, so the schema allows them and the verification script reports each count.
+
+| Pattern | Count | Why it is allowed |
+|---|---|---|
+| Delivered order with no customer delivery date; with no approval timestamp | 1; 1 | Status and dates are recorded separately; the extract does not say which is wrong. |
+| Canceled order that has a customer delivery date | 1 | An order can be canceled after it arrives. |
+| Carrier handover recorded before purchase; customer delivery before carrier handover | 20; 1 | We cannot tell an entry error from a real event, so the carrier date has no ordering CHECK. |
+| Product with no category | 103 | The source gives none; the column is nullable. |
+| Order item with zero freight | 40 | Zero is a valid charge; the CHECK is freight at or above 0. |
+| customer_unique_id under more than one customer_id | 34 | Returning buyers; this is why the column is not UNIQUE. |
+
+That every customer has an order cannot be declared without a circular foreign key, so a verification query confirms it (0 customers without an order). Orders without items are valid: 76 have none (55 unavailable, 21 canceled).

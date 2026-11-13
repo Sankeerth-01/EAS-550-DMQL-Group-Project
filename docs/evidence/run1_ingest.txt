@@ -1,0 +1,103 @@
+Run started 2026-11-12 23:39:48 UTC
+Order limit: first 10000 orders by order_id
+
+Input files (SHA-256)
+  olist_customers_dataset.csv     983a422239e1712ded753b3bf9ecf47dc73f144d306029dcfa99e70a226883d2  matches recorded value
+  olist_sellers_dataset.csv       1f643d2b950373b85735e7794b20986f528d7a000432e7c6f9bcbb44d0846a0e  matches recorded value
+  olist_products_dataset.csv      3e6569628a17fbc75fd206ee357b59e20364b9afa90f5b6cd5b4d624c58aa9cc  matches recorded value
+  olist_orders_dataset.csv        8df58ef3d2d7e9944010f7beecd9b75367f5588ec6e3c91cec19ae3345ef9ecf  matches recorded value
+  olist_order_items_dataset.csv   0bc4d068c4fe38cbb01bd90e8746e3c613fe7b4baef75fab7b0e329701c3e279  matches recorded value
+
+Selected orders
+  first 00010242fe8c5a6d1ba2dd792cb16214
+  last  19c37103c79e5f4a03f5fcc5b1fe97e7
+
+customers
+  rows read                                                                                99441
+  rows selected                                                                            10000
+  corrected: whitespace trimmed, repeated spaces in city collapsed                             0
+  rejected: identifier missing or not 32 lowercase hex characters                              0
+  rejected: duplicate key within the file                                                      0
+  rejected: required field missing or unparseable, or state not two uppercase letters          0
+  rejected: optional value unparseable, or text longer than its column                         0
+  rows rejected in total                                                                       0
+  rows inserted                                                                            10000
+  rows updated                                                                                 0
+  rows unchanged                                                                               0
+
+sellers
+  rows read                                                                                 3095
+  rows selected                                                                             1641
+  corrected: whitespace trimmed, repeated spaces in city collapsed                             2
+  flagged: seller_city outside a-z, space, apostrophe, hyphen (loaded unchanged)               9
+      'ribeirao preto / sao paulo'
+      "arraial d'ajuda (porto seguro)"
+      'vendas@creditparts.com.br'
+      'santa barbara d´oeste'
+      'mogi das cruzes / sp'
+      'auriflama/sp'
+      'sbc/sp'
+      'rio de janeiro / rio de janeiro'
+      'rio de janeiro, rio de janeiro, brasil'
+  rejected: identifier missing or not 32 lowercase hex characters                              0
+  rejected: duplicate key within the file                                                      0
+  rejected: required field missing or unparseable, or state not two uppercase letters          0
+  rejected: optional value unparseable, or text longer than its column                         0
+  rows rejected in total                                                                       0
+  rows inserted                                                                             1641
+  rows updated                                                                                 0
+  rows unchanged                                                                               0
+
+products
+  rows read                                                                                32951
+  rows selected                                                                             6686
+  corrected: whitespace trimmed, repeated spaces in city collapsed                             0
+  corrected: zero product measurement stored as NULL                                           2
+  rejected: identifier missing or not 32 lowercase hex characters                              0
+  rejected: duplicate key within the file                                                      0
+  rejected: optional value unparseable, or text longer than its column                         0
+  rows rejected in total                                                                       0
+  missing values kept as NULL: product_category_name                                         103
+  missing values kept as NULL: product_weight_g                                                3
+  missing values kept as NULL: product_length_cm                                               1
+  missing values kept as NULL: product_height_cm                                               1
+  missing values kept as NULL: product_width_cm                                                1
+  rows inserted                                                                             6686
+  rows updated                                                                                 0
+  rows unchanged                                                                               0
+
+orders
+  rows read                                                                                99441
+  rows selected                                                                            10000
+  corrected: whitespace trimmed, repeated spaces in city collapsed                             0
+  rejected: identifier missing or not 32 lowercase hex characters                              0
+  rejected: duplicate key within the file                                                      0
+  rejected: required field missing or unparseable, or state not two uppercase letters          0
+  rejected: optional value unparseable, or text longer than its column                         0
+  rejected: order_status outside the eight known values                                        0
+  rejected: approval, customer delivery, or estimated delivery earlier than purchase           0
+  rejected: parent row absent or rejected                                                      0
+  rows rejected in total                                                                       0
+  missing values kept as NULL: order_approved_at                                              20
+  missing values kept as NULL: order_delivered_carrier_date                                  182
+  missing values kept as NULL: order_delivered_customer_date                                 286
+  rows inserted                                                                            10000
+  rows updated                                                                                 0
+  rows unchanged                                                                               0
+
+order_items
+  rows read                                                                               112650
+  rows selected                                                                            11310
+  corrected: whitespace trimmed, repeated spaces in city collapsed                             0
+  rejected: identifier missing or not 32 lowercase hex characters                              0
+  rejected: duplicate key within the file                                                      0
+  rejected: required field missing or unparseable, or state not two uppercase letters          0
+  rejected: price not above 0, freight_value below 0, or order_item_id below 1                 0
+  rejected: parent row absent or rejected                                                      0
+  rows rejected in total                                                                       0
+  rows inserted                                                                            11310
+  rows updated                                                                                 0
+  rows unchanged                                                                               0
+
+Rejected rows are written to rejects/, one file per table.
+Load committed.
